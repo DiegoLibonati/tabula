@@ -6,15 +6,6 @@ This project was created primarily for **educational and learning purposes**.
 While it is well-structured and could technically be used in production, it is **not intended for commercialization**.  
 The main goal is to explore and demonstrate best practices, patterns, and technologies in software development.
 
-## Getting Started
-
-1. Clone the repository
-2. Navigate to the project folder
-3. Execute: `npm install`
-4. Execute: `npm run dev`
-
-The application will open automatically at `http://localhost:3000`
-
 ## Description
 
 **Tabula** is a lightweight, framework-free web application built entirely with vanilla TypeScript, HTML5, and CSS3. It presents an "About Us" style page where content is organized into three distinct sections — **History**, **Vision**, and **Goals** — each accessible through an interactive tab navigation system.
@@ -65,11 +56,18 @@ No production dependencies - Pure Vanilla TypeScript
 "vite": "^7.1.6"
 ```
 
-## Portfolio Link
+## Getting Started
 
-[`https://www.diegolibonati.com.ar/#/project/tabula`](https://www.diegolibonati.com.ar/#/project/tabula)
+1. Clone the repository
+2. Navigate to the project folder
+3. Execute: `npm install`
+4. Execute: `npm run dev`
+
+The application will open automatically at `http://localhost:3000`.
 
 ## Testing
+
+With the project installed, you can verify behavior with the Jest test suite.
 
 1. Navigate to the project folder
 2. Execute: `npm test`
@@ -80,9 +78,9 @@ For coverage report:
 npm run test:coverage
 ```
 
-### npm audit
+## Security Audit
 
-Check for vulnerabilities in dependencies:
+Beyond functional correctness, check for vulnerabilities in dependencies:
 
 ```bash
 npm audit
@@ -91,3 +89,7 @@ npm audit
 ## Known Issues
 
 None at the moment.
+
+## Portfolio Link
+
+[`https://www.diegolibonati.com.ar/#/project/tabula`](https://www.diegolibonati.com.ar/#/project/tabula)
