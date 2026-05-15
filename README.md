@@ -59,6 +59,8 @@ No production dependencies - Pure Vanilla TypeScript
 
 ## Getting Started
 
+Requirements: **Node.js ≥ 22** (see `.nvmrc`).
+
 1. Clone the repository
 2. Navigate to the project folder
 3. Execute: `npm install`
@@ -78,6 +80,15 @@ For coverage report:
 ```bash
 npm run test:coverage
 ```
+
+## CI/CD
+
+The project uses GitHub Actions with a pipeline that runs on every push and pull request to `main`:
+
+1. **Lint & Audit** — ESLint + type-check
+2. **Testing** — Jest test suite (needs lint to pass)
+3. **Build** — Vite production build (needs tests to pass)
+4. **Docker** — builds both development and production images (needs build to pass)
 
 ## Security Audit
 
