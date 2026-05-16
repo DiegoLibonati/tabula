@@ -81,14 +81,51 @@ For coverage report:
 npm run test:coverage
 ```
 
-## CI/CD
+## Continuous Integration
 
-The project uses GitHub Actions with a pipeline that runs on every push and pull request to `main`:
+The repository ships with a **GitHub Actions** pipeline defined in [`.github/workflows/ci.yml`](.github/workflows/ci.yml). It runs automatically on every `push` and `pull_request` targeting the `main` branch.
 
-1. **Lint & Audit** — ESLint + type-check
-2. **Testing** — Jest test suite (needs lint to pass)
-3. **Build** — Vite production build (needs tests to pass)
-4. **Docker** — builds both development and production images (needs build to pass)
+### Pipeline overview
+
+```
+                      ┌─── PR or push to main ───┐
+                      ▼                          ▼
+┌──────────────────────┐  ┌──────────────────┐  ┌──────────────────┐
+│   lint-and-audit     │─▶│     testing     │─▶│      build       │
+│ eslint · type-check  │  │       jest       │  │   vite build     │
+└──────────────────────┘  └──────────────────┘  └──────────────────┘
+```
+
+### Validation jobs (run on every PR and push to `main`)
+
+1. **`lint-and-audit`** — runs `npm run lint` (ESLint over `src/` and `__tests__/`) and `npm run type-check` (`tsc --noEmit`).
+2. **`testing`** — runs the full Jest suite with `npm test`. Depends on `lint-and-audit`.
+3. **`build`** — runs `npm run build`, which performs a final type-check and produces the optimized Vite production bundle. Depends on `testing`.
+
+Every job runs on `ubuntu-latest`, uses the Node.js version declared in [`.nvmrc`](.nvmrc), and caches `npm` dependencies between runs through `actions/setup-node`.
+
+### Running the same checks locally
+
+```bash
+# lint-and-audit
+npm run lint
+npm run type-check
+
+# testing
+npm test
+
+# build
+npm run build
+```
+
+### Where the build outputs live
+
+| Output                                    | Location                                                                         |
+| ----------------------------------------- | -------------------------------------------------------------------------------- |
+| Validation logs (lint, type-check, tests) | **Actions** tab on GitHub                                                        |
+| Production bundle (`dist/`)               | Ephemeral, inside the runner — not currently published as an artifact or release |
+
+> **Note:** the pipeline only validates the codebase; it does not publish a release, push a Docker image, or deploy. The `dist/` folder produced by the `build` job stays inside the runner and is discarded once the workflow finishes.
 
 ## Security Audit
 
